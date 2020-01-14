@@ -31,7 +31,7 @@ $primary-bg: #e4f4ff;
         }
 
         .time {
-            border: 1px solid lighten(#aab4b9, 10%) ;
+            border: 1px solid lighten(#aab4b9, 10%);
             margin-right: 12px;
             font-weight: bold;
             color: lighten($primary, 10%);
@@ -40,29 +40,35 @@ $primary-bg: #e4f4ff;
             border-radius: 5px;
             padding: 5px 30px;
             text-align: center;
-    }
-
-    .active {
-        animation: button-bounce 500ms ease-out  1 forwards;
-        
-    }
-
-    @keyframes button-bounce {
-        0% {
-            // transform: scaleX(1);
+            transition: color .5s ease-out;
         }
 
-        50% {
-            transform: scaleX(.93);
+        .disabled {
+            color: lightgray;
+            pointer-events: none;
         }
 
-        100% {
-        transform: none;
-        background: $primary;
-        color: #ffffff;
-        border-color: lighten(#aab4b9, 100%);
+        .active {
+            animation: button-bounce 500ms ease-out 1 forwards;
+
         }
-    }
+
+        @keyframes button-bounce {
+            0% {
+                // transform: scaleX(1);
+            }
+
+            50% {
+                transform: scaleX(.93);
+            }
+
+            100% {
+                transform: none;
+                background: $primary;
+                color: #ffffff;
+                border-color: lighten(#aab4b9, 100%);
+            }
+        }
 
 
     }

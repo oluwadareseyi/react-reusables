@@ -20,6 +20,7 @@ const Calendar = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [timeIndex, setTimeIndex] = useState(-1);
+  const [disabledTime, setDisabledTime] = useState(true);
 
   const nextMonth = () => {
     setCurrentDate(dateFns.addMonths(currentDate, 1));
@@ -86,7 +87,7 @@ const Calendar = () => {
     const endDate = dateFns.endOfWeek(monthEnd);
     const onDateClick = day => {
       console.log(dateFns.format(day, "dd, MMMM yyyy."));
-
+        setDisabledTime(false);
       setSelectedDate(day);
     };
     const dateFormat = "d";
@@ -149,7 +150,7 @@ const Calendar = () => {
       </div>
       <div className="hours">
         {hours.map((hour, i) => (
-          <div key={i} className={`time ${i == timeIndex ? "active" : ""}`}
+          <div key={i} className={`time ${disabledTime ? "disabled": ""} ${i === timeIndex ? "active" : ""}`}
           onClick={() => onTimeClick(hour, i)}
           >
             {hour}
