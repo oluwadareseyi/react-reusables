@@ -3,19 +3,23 @@ import * as dateFns from "date-fns";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import "./Calendar.scss";
 
-// let hrs = [];
-//     for (let i = 0; i <= 47; i++) {
-//       let n = i%2===0 ? i/2+':00' : (i+1)/2-1+':30';
-//       if(n<10) {
-//         n = '0'+n;
-//       }
-//       hrs.push(n);
-//     }
-//     console.log(hrs);
+let hours = [];
+for (let i = 0; i <= 47; i++) {
+  let n = i % 2 === 0 ? i / 2 + ":00" : (i + 1) / 2 - 1 + ":30";
+  if (n < 10) {
+    n = "0" + n;
+  }
+
+  if (n.length === 4) {
+      n = "0".concat(n);
+  }
+  hours.push(n);
+}
 
 const Calendar = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState(new Date());
+  const [timeIndex, setTimeIndex] = useState(-1);
 
   const nextMonth = () => {
     setCurrentDate(dateFns.addMonths(currentDate, 1));
@@ -23,6 +27,13 @@ const Calendar = () => {
   const prevMonth = () => {
     setCurrentDate(dateFns.subMonths(currentDate, 1));
   };
+
+  const onTimeClick = (time, i) => {
+    console.log(`${time} - ${time.slice(0, 3)}${parseInt(time.slice(-2)) + 15}`);
+    setTimeIndex(i);
+  }
+
+
 
   const header = () => {
     const dateFormat = "MMMM yyyy";
@@ -129,11 +140,22 @@ const Calendar = () => {
   };
 
   return (
-    <div className="calendar">
-      <div className="calendar-title">Select a Date & Time</div>
-      <div>{header()}</div>
-      <div>{daysOfWeek()}</div>
-      <div>{cells()}</div>
+    <div className="component">
+      <div className="calendar">
+        <div className="calendar-title">Select a Date & Time</div>
+        <div>{header()}</div>
+        <div>{daysOfWeek()}</div>
+        <div>{cells()}</div>
+      </div>
+      <div className="hours">
+        {hours.map((hour, i) => (
+          <div key={i} className={`time ${i == timeIndex ? "active" : ""}`}
+          onClick={() => onTimeClick(hour, i)}
+          >
+            {hour}
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
