@@ -36,24 +36,21 @@ body {
 
 /* GRID */
 
-//   .row {
-//     margin: 0;
-//     padding: 0;
-//     display: flex;
-//     flex-direction: row;
-//     flex-wrap: wrap;
-//     width: 100%;
-//   }
+  .row {
+    margin: 0;
+    margin-bottom: 10px;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+    // flex-wrap: wrap;
+    width: 100%;
+  }
 
-//   .row-middle {
-//     align-items: center;
-//   }
-
-//   .column {
-//     flex-grow: 1;
-//     flex-basis: 0;
-//     max-width: 100%;
-//   }
+  .column {
+    // flex-grow: .6;
+    flex-basis: 0;
+    max-width: 100%;
+  }
 
 /* Calendar */
 
@@ -64,14 +61,21 @@ body {
     height: auto;
     margin: 0 auto;
 
+    &-title {
+        margin-top: 1em;
+        margin-left: .2em;
+        font-weight: bold;
+        color: #828c96;
+    }
+
     .header {
         text-transform: capitalize;
         font-weight: 700;
         position: relative;
         display: flex;
         width: 100%;
-        padding: 1.75em 0;
-        padding-bottom: 1em;
+        padding: 1em 0;
+        padding-bottom: 1.3em;
         
         &-date {
             transition: all 2s;
@@ -85,7 +89,7 @@ body {
 
         .icons {
             position: absolute;
-            top: 31px;
+            top: 17px;
             left: 240px;
 
             .icon {
@@ -119,27 +123,21 @@ body {
             
     }
 
-    .body {
+    .calendar-body {
         .cell {
             position: relative;
-            height: 6em;
-            border-right: 1px solid lightgray;
+            height: 2em;
             overflow: hidden;
-            cursor: pointer;
             background: white;
-            transition: 0.25s ease-out;
-
-            &:hover {
-                background: whitesmoke;
-                transition: 0.5s ease-out;
-            }
+            border-radius: 7px;
+            transition: background 0.25s ease-out;
+            cursor: pointer;
         }
 
         .selected {
-            border-left: 10px solid transparent;
-            border-image: linear-gradient(45deg, #1affa0 0%, #cff153 40%);
-            border-image-slice: 1;
+            background: $primary;
         }
+
 
         .row {
             // border-bottom: 1px solid lightgray;
@@ -156,45 +154,35 @@ body {
 
             .number {
                 position: absolute;
-                font-size: 82.5%;
+                font-size: 14px;
                 line-height: 1;
+                color: #828c96;
                 top: .75em;
-                right: .75em;
+                right: 9px;
                 font-weight: 700;
+                transition: color 500ms ease-in;
             }
 
-            &:hover .number {
-                visibility: hidden;
+            .align-number {
+                right: 13px;
+            }
+        }
+
+        #current-date {
+            background: $primary-bg;
+            .number {
+                color: $primary;
             }
         }
 
         .selected .number {
-            visibility: hidden;
+            // visibility: hidden;
+            color: white;
         }
 
         .disabled {
-            color: lightgray;
-            pointer-events: none;
-        }
-
-        .cell {
-            .bg {
-                font-weight: 700;
-                line-height: 1;
-                color: #1affa0;
-                opacity: 0;
-                font-size: 5em;
-                position: absolute;
-                top: -.2em;
-                right: -.05em;
-                transition: .25s ease-out;
-                letter-spacing: -.07em;
-            }
-
-            &:hover .bg {
-                opacity: 0.2;
-                transition: .5s ease-in;
-            }
+            color: rgba(0, 0, 0, 0);
+            visibility: hidden;
         }
 
         .selected .bg {
@@ -204,8 +192,13 @@ body {
 
         .column {
             flex-grow: 0;
-            flex-basis: calc(100%/7);
-            width: calc(100%/7);
+            flex-basis: 34px;
+            margin-right: 12px;
+
+            &:last-of-type {
+                margin-right: 0;
+            }
+            // width: calc(100%/7);
         }
     }
 }
@@ -223,7 +216,7 @@ body {
 /* Declare transition properties */
 .slide-enter.slide-enter-active {
     opacity: 1;
-    transition: all 400ms ease-in-out 300ms;
+    transition: all 300ms ease-in-out 100ms;
 }
 
 /* EXIT TRANSITION */
